@@ -1,13 +1,19 @@
 import axios from "axios";
-import exp from "constants";
 
 const instance = axios.create({
-    baseURL: "https://social-network.samuraijs.com/api/1.1/",
+    baseURL: "https://social-network.samuraijs.com/api/1.1",
     withCredentials: true,
     headers: {
-        "API_KEY": "314b0124-4f3e-420a-9aac-2a8ba6dd682b"
+        "API-KEY": "314b0124-4f3e-420a-9aac-2a8ba6dd682b"
     }
 });
+
+instance.interceptors.request.use(function (config) {
+    config.headers["Authorization"] = "Bearer " + localStorage.getItem("sn-token");
+
+    return config;
+});
+
 
 export type TodolistType = {
     id: string
@@ -16,7 +22,7 @@ export type TodolistType = {
     order: number
 }
 
-type TasksType = {
+export type TasksType = {
     description?: string
     title?: string
     completed?: boolean
@@ -34,12 +40,31 @@ export type TasksStateType = {
     [key: string]: Array<TasksType>
 }
 
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+
+type GetTasksResponse = {
+    error: string | null;
+    totalCount: number;
+    items: TasksType[];
+};
+
+
+export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post(`/auth/login`, data)
+    }
+}
 
 export const todolistApi = {
     getTodolist() {
-        return instance.get(`/todo-lists`)
+        return instance.get<Array<TodolistType>>(`/todo-lists`)
     },
     getTasks(todolistId: string) {
-        return instance.get(`/todo-lists/${todolistId}/tasks`)
+        return instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`)
     }
 }

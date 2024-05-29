@@ -3,9 +3,11 @@ import {todolistsReducer} from "./todolist-reducer";
 import { ThunkAction, ThunkDispatch } from "redux-thunk"
 import {tasksReducer} from "./tasks-reducer";
 import {useDispatch} from "react-redux";
-import App from "./App";
+import {authReducer} from "./auth-reducer";
+
 
 const rootReducer = combineReducers({
+    auth: authReducer,
     todolists: todolistsReducer,
     tasks: tasksReducer,
 })

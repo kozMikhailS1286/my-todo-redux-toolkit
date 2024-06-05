@@ -4,6 +4,8 @@ import {fetchTasksTC} from "./tasks-reducer";
 import {AppRootStateType, useAppDispatch} from "./store";
 import {TasksType, TodolistType} from "./todolist-api";
 import {useSelector} from "react-redux";
+import s from './Todolist.module.css'
+import {removeTodolist} from "./todolist-reducer";
 
 
 type Props = {
@@ -21,8 +23,13 @@ const Todolist = (props: Props) => {
         dispatch(fetchTasksTC(props.todolist.id))
     }, [])
 
-    return (<div>
+    const removeTodo = (todolistId: string) => {
+        dispatch(removeTodolist(todolistId))
+    }
+
+    return (<div className={s.todolist}>
         {props.todolist.title}
+        <button onClick={()=>removeTodo(props.todolist.id)}> Del todo </button>
         {tasks?.map((t: TasksType) => (
             <Task
                 key={t.id}

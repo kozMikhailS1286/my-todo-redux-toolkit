@@ -1,5 +1,6 @@
 import React from "react";
 import {TasksType} from "./todolist-api";
+import s from "./Task.module.css"
 
 type Props = {
     task: TasksType
@@ -7,7 +8,7 @@ type Props = {
 
 
 const Task = (props: Props) => {
-    return <div key={props.task.id}>
+    return <div className={s.task} key={props.task.id}>
         {props.task.title}
     </div>
 }

@@ -59,6 +59,17 @@ type DelResponseType = {
     data: {}
 }
 
+export type AddResponseType = {
+    resultCode: number
+    messages: Array<string>
+    data: TasksStateType
+}
+export type AddTodolistResponseType = {
+    resultCode: number
+    messages: Array<string>
+    data: {item: TodolistType }
+}
+
 
 export const authAPI = {
     login(data: LoginParamsType) {
@@ -73,9 +84,8 @@ export const todolistApi = {
     getTasks(todolistId: string) {
         return instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`)
     },
-    addTodolist(title: string) {
-        console.log("Add todo API: " + title)
-        return instance.post(`/todo-lists`, {title})
+    addTodoAPI(title: string) {
+        return instance.post<AddTodolistResponseType>(`/todo-lists`, {title})
     },
     delTodolist(todolistId: string) {
         return instance.delete<DelResponseType>(`/todo-lists/${todolistId}`)

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import Todolist from "./Todolist";
 import {useSelector} from "react-redux";
-import {addTodolistT, fetchTodolistsTC} from "./todolist-reducer";
+import {addTodoT, fetchTodolistsTC} from "./todolist-reducer";
 import {AppRootStateType, useAppDispatch} from "./store";
 import {TodolistType} from "./todolist-api";
 import s from './TodolistsLists.module.css'
@@ -18,19 +18,18 @@ const TodolistsLists = () => {
         dispatch(fetchTodolistsTC())
     }, [dispatch])
 
-    const changeTodolistTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
-    const addTodolist = (todoTitle: string) => {
-        console.log("add in component: " + todoTitle)
-        dispatch(addTodolistT(todoTitle))
+    const addTodo = (title: string) => {
+        dispatch(addTodoT(title))
     }
 
     return <div className={s.todolist}>
         <h3> My todo Redux Toolkit: </h3>
-        <input onChange={changeTodolistTitle} value={title}/>
-        <button onClick={()=>addTodolist(title)}> Add Todo </button>
+        <input onChange={onChangeTitle} title={title}/>
+        <button onClick={()=>addTodo(title)}> Add Todo </button>
         {
             todolists.map((tl) => {
 

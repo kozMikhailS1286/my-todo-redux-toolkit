@@ -31,7 +31,7 @@ export type TasksType = {
     startDate?: string
     deadline?: string
     id?: string
-    todoListId?: string
+    todoListId: string
     order?: number
     addedDate?: string
 }
@@ -59,15 +59,17 @@ type DelResponseType = {
     data: {}
 }
 
-export type AddResponseType = {
-    resultCode: number
-    messages: Array<string>
-    data: TasksStateType
-}
+
 export type AddTodolistResponseType = {
     resultCode: number
     message: Array<string>
     data: {item: TodolistType}
+}
+
+export type AddTaskResponseType = {
+    resultCode: number
+    message: Array<string>
+    data: {item: TasksType}
 }
 
 
@@ -92,6 +94,6 @@ export const todolistApi = {
     },
     createTask(todolistId: string, title: string) {
         console.log("create task API")
-        return instance.post(`/todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<AddTaskResponseType>(`/todo-lists/${todolistId}/tasks`, {title})
     }
 }

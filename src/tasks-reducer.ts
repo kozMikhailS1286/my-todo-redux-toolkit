@@ -9,13 +9,13 @@ export const slice = createSlice({
         setTasks: (state, action: PayloadAction<{ tasks: Array<TasksType>; todolistId: string }>) => {
             return {...state, [action.payload.todolistId]: action.payload.tasks}
         },
-        addTask: (state, action) => {
+        addTask: (state, action: PayloadAction<{task: TasksType}>) => {
             let task = state[action.payload.task.todoListId]
             task.unshift(action.payload.task)
-            return
         }
     }
 })
+
 export const tasksReducer = slice.reducer
 export const tasksAction = slice.actions
 

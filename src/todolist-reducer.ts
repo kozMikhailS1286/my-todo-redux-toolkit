@@ -13,7 +13,7 @@ export const slice = createSlice({
         removeTodolist: (state, action: PayloadAction<{ id: string }>) => {
             return state.filter((tl) => tl.id !== action.payload.id)
         },
-        addTodo: (state, action: PayloadAction<{todolist: TodolistType}>) => {
+        addTodo: (state, action: PayloadAction<any>): any => {
             return [{...action.payload.todolist}, ...state]
         }
     }
@@ -37,10 +37,9 @@ export const fetchTodolistsTC = (): AppThunk => {
 
 export const addTodoT = (title: string): AppThunk => {
     return (dispatch) => {
-        todolistApi.addTodoAPI(title)
+        todolistApi.createTodo(title)
             .then((res) => {
                 dispatch(todolistsActions.addTodo({todolist: res.data.data.item}))
-
             })
     }
 }

@@ -18,7 +18,7 @@ const TodolistsLists = () => {
         dispatch(fetchTodolistsTC())
     }, [dispatch])
 
-    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
@@ -26,9 +26,10 @@ const TodolistsLists = () => {
         dispatch(addTodoT(title))
     }
 
+
     return <div className={s.todolist}>
         <h3> My todo Redux Toolkit: </h3>
-        <input onChange={onChangeTitle} title={title}/>
+        <input onChange={changeTitle}/>
         <button onClick={()=>addTodo(title)}> Add Todo </button>
         {
             todolists.map((tl) => {
@@ -36,7 +37,6 @@ const TodolistsLists = () => {
                 return (
                     <Todolist   key={tl.id}
                                 todolist={tl}
-
                     />
                 )
             })

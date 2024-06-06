@@ -66,8 +66,8 @@ export type AddResponseType = {
 }
 export type AddTodolistResponseType = {
     resultCode: number
-    messages: Array<string>
-    data: {item: TodolistType }
+    message: Array<string>
+    data: {item: TodolistType}
 }
 
 
@@ -84,13 +84,14 @@ export const todolistApi = {
     getTasks(todolistId: string) {
         return instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`)
     },
-    addTodoAPI(title: string) {
+    createTodo(title: string) {
         return instance.post<AddTodolistResponseType>(`/todo-lists`, {title})
     },
     delTodolist(todolistId: string) {
         return instance.delete<DelResponseType>(`/todo-lists/${todolistId}`)
     },
-    // delTask(taskId: string, todolistId: string) {
-    //     return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`)
-    // }
+    createTask(todolistId: string, title: string) {
+        console.log("create task API")
+        return instance.post(`/todo-lists/${todolistId}/tasks`, {title})
+    }
 }

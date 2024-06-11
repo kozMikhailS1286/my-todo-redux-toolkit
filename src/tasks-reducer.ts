@@ -35,12 +35,12 @@ export const tasksAction = slice.actions
 //     }
 // }
 
-export const fetchTasksTC = createAsyncThunk<{task: TasksType[], todolistId: string}, string> (
+export const fetchTasksTC = createAsyncThunk<{task: TasksType[], todolistId: string}, string>(
     "task/fetchTask",
-        async (todolistId) => {
-            const res = await todolistApi.getTasks(todolistId)
-            return {task: res.data.items, todolistId}
-        }
+    async (todolistId) => {
+        const res = await todolistApi.getTasks(todolistId)
+        return {task: res.data.items, todolistId}
+    }
 )
 
 export const addTaskT = (todolistId: string, title: string): AppThunk => {

@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TasksStateType, TasksType, todolistApi} from "./todolist-api";
 import {AppThunk} from "./store";
+import {createTodoTC} from "./todolist-reducer";
 
 export const slice = createSlice({
     name: "tasks",

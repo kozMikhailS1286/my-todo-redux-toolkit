@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import Todolist from "./Todolist";
 import {useSelector} from "react-redux";
-import {addTodoT, fetchTodolistsTC} from "./todolist-reducer";
+import {createTodoTC, fetchTodolistsTC} from "./todolist-reducer";
 import {AppRootStateType, useAppDispatch} from "./store";
 import {TodolistType} from "./todolist-api";
 import s from './TodolistsLists.module.css'
@@ -23,7 +23,7 @@ const TodolistsLists = () => {
     }
 
     const addTodo = (title: string) => {
-        dispatch(addTodoT(title))
+        dispatch(createTodoTC(title))
     }
 
 

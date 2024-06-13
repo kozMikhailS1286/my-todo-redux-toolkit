@@ -89,11 +89,12 @@ export const todolistApi = {
     createTodo(title: string) {
         return instance.post<AddTodolistResponseType>(`/todo-lists`, {title})
     },
-    delTodolist(todolistId: string) {
-        return instance.delete<DelResponseType>(`/todo-lists/${todolistId}`)
-    },
     createTask(todolistId: string, title: string) {
         console.log("create task API")
         return instance.post<AddTaskResponseType>(`/todo-lists/${todolistId}/tasks`, {title})
+    },
+    deleteTodolist(todolistId: string) {
+        console.log("del Todo in API")
+        return instance.delete<DelResponseType>(`/todo-lists/${todolistId}`)
     }
 }

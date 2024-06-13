@@ -1,8 +1,7 @@
 import React from 'react';
 import TodolistsLists from "./TodolistsLists";
 import {Route, Routes} from "react-router-dom";
-// import {useSelector} from "react-redux";
-// import {AppRootStateType} from "./store";
+import Form from "./Login";
 
 function App() {
 
@@ -12,6 +11,7 @@ function App() {
         <div>
             <Routes>
                 <Route path={"/"} element={ <TodolistsLists/> } />
+                <Route path={"/login"} element={ <Form/> } />
             </Routes>
         </div>
     );

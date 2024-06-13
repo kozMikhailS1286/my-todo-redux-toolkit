@@ -5,7 +5,6 @@ import {tasksReducer} from "./tasks-reducer";
 import {useDispatch} from "react-redux";
 import {authReducer} from "./auth-reducer";
 
-
 const rootReducer = combineReducers({
     auth: authReducer,
     todolists: todolistsReducer,

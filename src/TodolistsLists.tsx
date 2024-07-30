@@ -9,6 +9,7 @@ import s from './TodolistsLists.module.css'
 const TodolistsLists = () => {
 
     const [title, setTitle] = useState("")
+    const [error, setError] = useState<string | null>(null)
 
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
 
@@ -20,17 +21,23 @@ const TodolistsLists = () => {
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
+        setError(null)
     }
 
     const addTodo = (title: string) => {
-        dispatch(createTodoTC(title))
+        if (title.trim() !== "") {
+            dispatch(createTodoTC(title))
+            setTitle("")
+        } else {
+            setError("Enter your title")
+        }
     }
-
 
     return <div className={s.todolist}>
         <h3> My todo Redux Toolkit: </h3>
-        <input onChange={changeTitle}/>
+        <input onChange={changeTitle} value={title}/>
         <button onClick={()=>addTodo(title)}> Add Todo </button>
+        <h4> {error} </h4>
         {
             todolists.map((tl) => {
 

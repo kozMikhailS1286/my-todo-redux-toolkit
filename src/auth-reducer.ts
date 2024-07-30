@@ -18,7 +18,7 @@ export const authReducer = slice.reducer
 export const authActions = slice.actions
 
 
-export const login = (data: LoginParamsType): AppThunk =>
+export const loginTC = (data: LoginParamsType): AppThunk =>
     (dispatch) => {
     authAPI.login(data)
         .then(response => {

@@ -74,6 +74,9 @@ export type AddTaskResponseType = {
 
 
 export const authAPI = {
+    auth() {
+      return instance.get(`/auth/me`)
+    },
     login(data: LoginParamsType) {
         return instance.post(`/auth/login`, data)
     }

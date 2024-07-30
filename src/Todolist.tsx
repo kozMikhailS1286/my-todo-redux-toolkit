@@ -16,6 +16,7 @@ type Props = {
 const Todolist = (props: Props) => {
 
     const [title, setTitle] = useState("")
+    const [error, setError] = useState<string | null>(null)
 
     const dispatch = useAppDispatch()
 
@@ -27,13 +28,19 @@ const Todolist = (props: Props) => {
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
+        setError(null)
     }
 
 
 
     const addTask = (todolistId: string, taskTitle: string) => {
-        console.log("Add Task")
-        dispatch(addTaskT(todolistId, taskTitle))
+        if (title.trim() !== "") {
+            console.log("Add Task")
+            dispatch(addTaskT(todolistId, taskTitle))
+            setTitle("")
+        } else {
+            setError("Enter your title")
+        }
     }
 
     const delTodo = (todolistId: string) => {
@@ -43,8 +50,9 @@ const Todolist = (props: Props) => {
 
     return (<div className={s.todolist}>
         {props.todolist.title}
-        <input onChange={changeTitle} title={title}/>
+        <input onChange={changeTitle} value={title}/>
         <button onClick={()=>addTask(props.todolist.id, title)}> Add Task </button>
+        <h4> {error} </h4>
 
         {tasks?.map((t: TasksType) => (
             <Task

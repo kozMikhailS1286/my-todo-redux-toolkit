@@ -5,11 +5,11 @@ import {authAPI, LoginParamsType} from "./todolist-api";
 export const slice = createSlice({
     name: "auth",
     initialState: {
-        isLoggedIn: false
+        isLoggedIn: false,
     },
     reducers: {
         setIsLoggedIn: (state, action) => {
-            return action.payload.isLoggedIn
+            return {...state, isLoggedIn : action.payload.isLoggedIn}
         }
     }
 })
@@ -31,3 +31,13 @@ export const loginTC = (data: LoginParamsType): AppThunk =>
             }
         });
 };
+
+export const initializedApp = (): AppThunk => (dispatch) => {
+    authAPI.auth()
+        .then(res => {
+            dispatch(authActions.setIsLoggedIn({isLoggedIn: true}));
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }

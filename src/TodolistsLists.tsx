@@ -5,6 +5,7 @@ import {createTodoTC, fetchTodolistsTC} from "./todolist-reducer";
 import {AppRootStateType, useAppDispatch} from "./store";
 import {TodolistType} from "./todolist-api";
 import s from './TodolistsLists.module.css'
+import {Navigate} from "react-router-dom";
 
 const TodolistsLists = () => {
 
@@ -12,11 +13,15 @@ const TodolistsLists = () => {
     const [error, setError] = useState<string | null>(null)
 
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    const isLoggedIn = useSelector<AppRootStateType>(state => state.auth.isLoggedIn)
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(fetchTodolistsTC())
+        if (!isLoggedIn) {
+            return
+        }
+            dispatch(fetchTodolistsTC())
     }, [dispatch])
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +36,10 @@ const TodolistsLists = () => {
         } else {
             setError("Enter your title")
         }
+    }
+
+    if (!isLoggedIn) {
+        return <Navigate to={"/login"}/>
     }
 
     return <div className={s.todolist}>

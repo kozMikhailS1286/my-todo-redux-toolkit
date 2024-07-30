@@ -1,11 +1,14 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import {loginTC} from "./auth-reducer";
-import {useAppDispatch} from "./store";
+import {AppRootStateType, useAppDispatch} from "./store";
+import {Navigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 
 const Login = () => {
     const dispatch = useAppDispatch()
+    const isLoggedIn = useSelector<AppRootStateType>(state => state.auth.isLoggedIn)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -16,6 +19,11 @@ const Login = () => {
             dispatch(loginTC(values))
         },
     });
+
+    if (isLoggedIn) {
+        return <Navigate to={"/"}/>
+    }
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <label>Email</label>

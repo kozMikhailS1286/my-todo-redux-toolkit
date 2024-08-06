@@ -32,10 +32,23 @@ export const loginTC = (data: LoginParamsType): AppThunk =>
         });
 };
 
+export const logoutTC = (): AppThunk =>
+    (dispatch) => {
+    authAPI.logout()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(authActions.setIsLoggedIn({isLoggedIn: false}))
+                localStorage.clear()
+            }
+        })
+    }
+
 export const initializedApp = (): AppThunk => (dispatch) => {
     authAPI.auth()
         .then(res => {
-            dispatch(authActions.setIsLoggedIn({isLoggedIn: true}));
+            if (res.data.resultCode === 0) {
+                dispatch(authActions.setIsLoggedIn({isLoggedIn: true}));
+            }
         })
         .catch((err) => {
             console.log(err)

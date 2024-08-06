@@ -6,6 +6,7 @@ import {AppRootStateType, useAppDispatch} from "./store";
 import {TodolistType} from "./todolist-api";
 import s from './TodolistsLists.module.css'
 import {Navigate} from "react-router-dom";
+import {logoutTC} from "./auth-reducer";
 
 const TodolistsLists = () => {
 
@@ -38,12 +39,17 @@ const TodolistsLists = () => {
         }
     }
 
+    const logout = () => {
+        dispatch(logoutTC())
+    }
+
     if (!isLoggedIn) {
         return <Navigate to={"/login"}/>
     }
 
     return <div className={s.todolist}>
         <h3> My todo Redux Toolkit: </h3>
+        <button onClick={logout}> Logout </button>
         <input onChange={changeTitle} value={title}/>
         <button onClick={()=>addTodo(title)}> Add Todo </button>
         <h4> {error} </h4>
